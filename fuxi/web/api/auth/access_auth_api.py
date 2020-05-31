@@ -25,7 +25,7 @@ class UserManageV1(Resource):
     def post(self):
         try:
             if session.get("authority") != 0:
-                return Response.failed(message="Add user failed: Permission denied")
+                return Response.failed(message="添加用户失败: 没有权限")
             args = parser.parse_args()
             username = args['username']
             password = args['password']
@@ -37,7 +37,7 @@ class UserManageV1(Resource):
             ):
                 return Response.success(message="添加成功")
             else:
-                return Response.failed(message="Add admin failed", code=10401)
+                return Response.failed(message="添加管理员失败", code=10401)
         except Exception as e:
             logger.warning("add admin failed: {}".format(e))
             return Response.failed(message=e)
@@ -49,15 +49,15 @@ class UserManageV1(Resource):
             args = parser.parse_args()
             username = args['username'] if args.get("username") else op
             if not username:
-                return Response.failed(message="Permission denied")
+                return Response.failed(message="没有权限")
             password = args['password']
             if op == username or (session.get("authority") == 0):
                 if len(password) < 8:
-                    return Response.failed(message="Password too short")
+                    return Response.failed(message="密码太短")
                 DBFuxiAdmin.change_password(username, password)
-                return Response.success(message="Your Password has been changed")
+                return Response.success(message="你的密码已更改")
             else:
-                return Response.failed(message="Permission denied")
+                return Response.failed(message="没有权限")
         except Exception as e:
             logger.warning("password change failed: {}".format(e))
             return Response.failed(message=e)

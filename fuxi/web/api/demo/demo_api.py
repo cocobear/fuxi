@@ -47,11 +47,11 @@ class FileUploadDemo(Resource):
                 app=poc_data['app'], poc_type=poc_data['type']
             )
             if pid:
-                msg = "pocsuite plugin upload successful: {}".format(pid)
+                msg = "POC插件上传成功: {}".format(pid)
                 logger.success(msg)
                 return Response.success(message=msg)
             else:
-                return Response.failed(message="pocsuite plugin upload failed")
+                return Response.failed(message="POC插件上传失败")
         except Exception as e:
             logger.warning("pocsuite plugin upload failed: {}".format(e))
             return Response.failed(message=e)

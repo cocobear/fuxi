@@ -132,9 +132,9 @@ class BasicConfigMangeV1(Resource):
             key = args['key']
             value = args['value']
             if not key or not value:
-                return Response.failed(message="Illegal input!")
+                return Response.failed(message="非法输入!")
             if not DBFuxiConfiguration.setting_item_check(key.strip()):
-                return Response.failed(message="Configuration item is invalid")
+                return Response.failed(message="配置项目无效")
             d = {key.strip(): value.strip()}
             DBFuxiConfiguration.update_by_id(cid, d)
             return Response.success(message="更新成功")

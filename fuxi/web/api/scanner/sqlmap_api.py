@@ -101,7 +101,7 @@ class SqlmapTaskManageV1(Resource):
                 data['end_date'] = timestamp_to_str(data['end_date'])
                 return Response.success(data=data)
             else:
-                return Response.failed(message="can't find task", data={})
+                return Response.failed(message="找不到任务", data={})
         except Exception as e:
             msg = "获取任务详情失败: {}".format(e)
             logger.warning(msg)
@@ -209,7 +209,7 @@ class SqlmapResultManageV1(Resource):
                 data['date'] = timestamp_to_str(data['date'])
                 return Response.success(data=data)
             else:
-                return Response.failed(message="can't find the result", data={})
+                return Response.failed(message="找不到结果", data={})
         except Exception as e:
             msg = "获取结果失败: {}".format(e)
             logger.warning(msg)

@@ -321,7 +321,7 @@ class PocsuiteResultManageV1(Resource):
                 data['date'] = timestamp_to_str(data['date'])
                 return Response.success(data=data)
             else:
-                return Response.failed(message="can't find the vulnerability", data={})
+                return Response.failed(message="找不到该漏洞", data={})
         except Exception as e:
             msg = "获取漏洞失败: {}".format(e)
             logger.warning(msg)
@@ -341,7 +341,7 @@ class PocsuiteResultManageV1(Resource):
             logger.info("{} deleted the vulnerability: {}".format(op, vul_id))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "删除漏洞: {}".format(e)
+            msg = "删除漏洞失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
