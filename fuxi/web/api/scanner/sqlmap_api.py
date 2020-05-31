@@ -55,7 +55,7 @@ class SqlmapTasksV1(Resource):
                 })
             return Response.success(data=data)
         except Exception as e:
-            msg = "get sqlmap tasks failed: {}".format(e)
+            msg = "获取任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -84,7 +84,7 @@ class SqlmapTasksV1(Resource):
             logger.success("{} created the sqlmap task {}".format(op, tid))
             return Response.success(message="任务创建成功")
         except Exception as e:
-            msg = "Failed to create task: {}".format(e)
+            msg = "任务创建失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -103,7 +103,7 @@ class SqlmapTaskManageV1(Resource):
             else:
                 return Response.failed(message="can't find task", data={})
         except Exception as e:
-            msg = "get sqlmap task detail failed: {}".format(e)
+            msg = "获取任务详情失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -120,7 +120,7 @@ class SqlmapTaskManageV1(Resource):
             logger.info("{} deleted the sqlmap task: {}".format(op, tid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete sqlmap task failed: {}".format(e)
+            msg = "删除任务失败 {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -211,7 +211,7 @@ class SqlmapResultManageV1(Resource):
             else:
                 return Response.failed(message="can't find the result", data={})
         except Exception as e:
-            msg = "get sqlmap result failed: {}".format(e)
+            msg = "获取结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -228,7 +228,7 @@ class SqlmapResultManageV1(Resource):
             logger.info("{} deleted the sqlmap result: {}".format(op, rid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete sqlmap result failed: {}".format(e)
+            msg = "删除结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -256,6 +256,6 @@ class SqlmapTaskResultExportV1(Resource):
             response.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
             return response
         except Exception as e:
-            msg = "export sqlmap scan result failed: {}".format(e)
+            msg = "导出扫描结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
