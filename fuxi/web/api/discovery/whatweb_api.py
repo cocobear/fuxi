@@ -80,7 +80,7 @@ class WhatwebTasksV1(Resource):
             logger.success("{} created the whatweb task: {}".format(session.get('user'), tid))
             return Response.success(message="任务创建成功")
         except Exception as e:
-            msg = "task creation failed: {}".format(e)
+            msg = "任务创建失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -143,7 +143,7 @@ class WhatwebTaskManageV1(Resource):
             #     del data['_id']
             return Response.success(data=data)
         except Exception as e:
-            msg = "get task detail failed: {}".format(e)
+            msg = "获取任务详情失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -170,7 +170,7 @@ class WhatwebTaskManageV1(Resource):
                 logger.info("{} {}: whatweb task rescan".format(session.get('user'), tid))
             return Response.success(message="{} 成功".format(action))
         except Exception as e:
-            msg = "rescan the task failed: {}".format(e)
+            msg = "重新扫描任务失败: {}".format(e)
             logger.warning(tid + msg)
             return Response.failed(message=msg)
 
@@ -191,7 +191,7 @@ class WhatwebTaskManageV1(Resource):
             logger.info("{} deleted the whatweb task: {}".format(op, tid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete the task failed: {}".format(e)
+            msg = "删除任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -236,7 +236,7 @@ class WebsiteFPSearchV1(Resource):
                 data.append(tmp_data)
             return Response.success(data=data)
         except Exception as e:
-            msg = "get website fingerprint failed: {}".format(e)
+            msg = "获取网站指纹失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -250,7 +250,7 @@ class WebsiteFPManageV1(Resource):
             logger.info("{} deleted the whatweb result: {}".format(op, rid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete the task failed: {}".format(e)
+            msg = "删除任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -303,7 +303,7 @@ class WebFPExportV1(Resource):
             response.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
             return response
         except Exception as e:
-            msg = "export website fingerprint failed: {}".format(e)
+            msg = "导出网站指纹失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -337,6 +337,6 @@ class WebFPExportWithTIDV1(Resource):
             response.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
             return response
         except Exception as e:
-            msg = "export website fingerprint failed: {}".format(e)
+            msg = "导出网站指纹失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)

@@ -152,7 +152,7 @@ class SqlmapTaskManageV1(Resource):
                     print(item.__contains__("celery_id"))
             return Response.success(message="{} 成功".format(action))
         except Exception as e:
-            msg = "rescan the task failed: {}".format(e)
+            msg = "重新扫描任务失败: {}".format(e)
             logger.warning(tid + msg)
             return Response.failed(message=msg)
 
