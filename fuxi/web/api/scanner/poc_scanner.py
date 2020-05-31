@@ -60,7 +60,7 @@ class PocsuiteTasksV1(Resource):
                 })
             return Response.success(data=data)
         except Exception as e:
-            msg = "get pocsuite tasks failed: {}".format(e)
+            msg = "获取POC任务失败 {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -91,7 +91,7 @@ class PocsuiteTasksV1(Resource):
                 result = quick_poc_scanner(target, poc_id)
                 return Response.success(data=result)
         except Exception as e:
-            msg = "Failed to create task: {}".format(e)
+            msg = "任务创建失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -117,7 +117,7 @@ class PocsuiteTaskManageV1(Resource):
             else:
                 return Response.failed(message="can't find task", data={})
         except Exception as e:
-            msg = "get pocsuite task detail failed: {}".format(e)
+            msg = "获取POC任务详情失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -135,7 +135,7 @@ class PocsuiteTaskManageV1(Resource):
             logger.info("{} deleted the pocsuite task: {}".format(op, tid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete poc task failed: {}".format(e)
+            msg = "删除POC任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -213,11 +213,11 @@ class PocsuitePluginsV1(Resource):
                 app=poc_data['app'], poc_type=poc_data['type'], op=op
             )
             if pid:
-                msg = "{} pocsuite plugin upload successful: {}".format(op, pid)
+                msg = "{} 上传插件成功: {}".format(op, pid)
                 logger.success(msg)
                 return Response.success(message=msg)
             else:
-                return Response.failed(message="pocsuite plugin upload failed")
+                return Response.failed(message="上传插件失败")
         except Exception as e:
             logger.warning("pocsuite plugin upload failed: {}".format(e))
             return Response.failed(message=e)
@@ -239,9 +239,9 @@ class PocsuitePluginManageV1(Resource):
                 del data['_id']
                 return Response.success(data=data)
             else:
-                return Response.failed(message="can't find the pocsuite plugin", data={})
+                return Response.failed(message="找不到POC插件", data={})
         except Exception as e:
-            msg = "get pocsuite plugin detail failed: {}".format(e)
+            msg = "获取插件详情失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -259,7 +259,7 @@ class PocsuitePluginManageV1(Resource):
             logger.info("{} deleted the pocsuite plugin: {}".format(op, plugin_id))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete pocsuite plugin failed: {}".format(e)
+            msg = "删除插件失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -323,7 +323,7 @@ class PocsuiteResultManageV1(Resource):
             else:
                 return Response.failed(message="can't find the vulnerability", data={})
         except Exception as e:
-            msg = "get pocsuite vulnerability failed: {}".format(e)
+            msg = "获取漏洞失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -341,7 +341,7 @@ class PocsuiteResultManageV1(Resource):
             logger.info("{} deleted the vulnerability: {}".format(op, vul_id))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete pocsuite vulnerability failed: {}".format(e)
+            msg = "删除漏洞: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -374,6 +374,6 @@ class PocsuiteResultExportV1(Resource):
             response.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
             return response
         except Exception as e:
-            msg = "export poc scan result failed: {}".format(e)
+            msg = "导出POC扫描结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
