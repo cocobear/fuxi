@@ -133,7 +133,7 @@ class PocsuiteTaskManageV1(Resource):
             op = session.get('user')
             DBPocsuiteTask.delete_by_id(tid)
             logger.info("{} deleted the pocsuite task: {}".format(op, tid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete poc task failed: {}".format(e)
             logger.warning(msg)
@@ -257,7 +257,7 @@ class PocsuitePluginManageV1(Resource):
             op = session.get('user')
             DBPocsuitePlugin.delete_by_id(plugin_id)
             logger.info("{} deleted the pocsuite plugin: {}".format(op, plugin_id))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete pocsuite plugin failed: {}".format(e)
             logger.warning(msg)
@@ -339,7 +339,7 @@ class PocsuiteResultManageV1(Resource):
             op = session.get('user')
             DBPocsuiteVul.delete_by_id(vul_id)
             logger.info("{} deleted the vulnerability: {}".format(op, vul_id))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete pocsuite vulnerability failed: {}".format(e)
             logger.warning(msg)

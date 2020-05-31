@@ -60,7 +60,7 @@ class PortScanTasksV1(Resource):
                 data.append(tmp_data)
             return Response.success(data=data)
         except Exception as e:
-            msg = "get port scan task failed: {}".format(e)
+            msg = "获取端口扫描任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -78,9 +78,9 @@ class PortScanTasksV1(Resource):
             )
             t_port_scan.delay(tid)
             logger.success("{} created the port scan task: {}".format(session.get('user'), tid))
-            return Response.success(message="The task was created successfully")
+            return Response.success(message="任务已成功创建")
         except Exception as e:
-            msg = "task creation failed: {}".format(e)
+            msg = "任务创建失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -100,7 +100,7 @@ class PortScanTaskManageV1(Resource):
             del data['_id']
             return Response.success(data=data)
         except Exception as e:
-            msg = "get task detail failed: {}".format(e)
+            msg = "获取任务详情失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -125,9 +125,9 @@ class PortScanTaskManageV1(Resource):
                 celery_id = t_port_scan.delay(tid)
                 DBPortScanTasks.update_celery_id(tid, celery_id)
                 logger.info("{} {} port scan task rescan".format(session.get('user'), tid))
-            return Response.success(message="successfully {}".format(action))
+            return Response.success(message="{}成功".format(action))
         except Exception as e:
-            msg = "rescan port scan task failed: {}".format(e)
+            msg = "失败: {}".format(e)
             logger.warning(tid + msg)
             return Response.failed(message=msg)
 
@@ -144,9 +144,9 @@ class PortScanTaskManageV1(Resource):
             DBPortScanTasks.delete_by_id(tid)
             DBPortScanResult.delete_by_tid(tid)
             logger.info("{} deleted the port scan task: {}".format(op, tid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete port scan task failed: {}".format(e)
+            msg = "删除端口扫描任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -177,7 +177,7 @@ class PortScanResultV1(Resource):
                 data.append(tmp_data)
             return Response.success(data=data)
         except Exception as e:
-            msg = "get port scan result failed: {}".format(e)
+            msg = "获取端口扫描结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -205,7 +205,7 @@ class PortScanHostV1(Resource):
                 })
             return Response.success(data=data)
         except Exception as e:
-            msg = "get host detail failed: {}".format(e)
+            msg = "获取主机详情: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -221,7 +221,7 @@ class PortScanHostV1(Resource):
             op = session.get('user')
             DBPortScanResult.delete_by_id(hid)
             logger.info("{} deleted the host: {}".format(op, hid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete host failed: {}".format(e)
             logger.warning(msg)

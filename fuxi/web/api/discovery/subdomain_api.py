@@ -117,7 +117,7 @@ class SubdomainTaskManageV1(Resource):
             DBSubdomainTask.delete_by_id(tid)
             DBSubdomainResult.delete_by_tid(tid)
             logger.info("{} deleted the subdomain scan task: {}".format(op, tid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete subdomain scan task failed: {}".format(e)
             logger.warning(msg)
@@ -174,7 +174,7 @@ class SubdomainResultManageV1(Resource):
             op = session.get('user')
             DBSubdomainResult.delete_by_id(rid)
             logger.info("{} deleted the subdomain scan result: {}".format(op, rid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete subdomain scan task failed: {}".format(e)
             logger.warning(msg)

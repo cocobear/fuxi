@@ -118,7 +118,7 @@ class SqlmapTaskManageV1(Resource):
             op = session.get('user')
             DBSqlmapTask.delete_by_id(tid)
             logger.info("{} deleted the sqlmap task: {}".format(op, tid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete sqlmap task failed: {}".format(e)
             logger.warning(msg)
@@ -226,7 +226,7 @@ class SqlmapResultManageV1(Resource):
             op = session.get('user')
             DBSqlmapResult.delete_by_id(rid)
             logger.info("{} deleted the sqlmap result: {}".format(op, rid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete sqlmap result failed: {}".format(e)
             logger.warning(msg)

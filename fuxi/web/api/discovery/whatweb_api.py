@@ -189,7 +189,7 @@ class WhatwebTaskManageV1(Resource):
             # developer, you can change this
             DBWebFingerPrint.delete_by_tid(tid)
             logger.info("{} deleted the whatweb task: {}".format(op, tid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete the task failed: {}".format(e)
             logger.warning(msg)
@@ -248,7 +248,7 @@ class WebsiteFPManageV1(Resource):
             op = session.get('user')
             DBWebFingerPrint.delete_by_id(rid)
             logger.info("{} deleted the whatweb result: {}".format(op, rid))
-            return Response.success(message="successfully deleted")
+            return Response.success(message="删除成功")
         except Exception as e:
             msg = "delete the task failed: {}".format(e)
             logger.warning(msg)
