@@ -43,7 +43,7 @@ class DashboardResCount(Resource):
             data['sqlmap'] = DBSqlmapResult.get_count({"result": 1})
             return Response.success(data=data)
         except Exception as e:
-            msg = "get dashboard result count failed: {}".format(e)
+            msg = "获取面板统计数据失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -113,7 +113,7 @@ class DashboardRunningTasksV1(Resource):
                 item['date'] = timestamp_to_str(item['date'])
             return Response.success(data=data)
         except Exception as e:
-            msg = "get dashboard running task list failed: {}".format(e)
+            msg = "获取正在进行的任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -135,7 +135,7 @@ class DashboardSystemInfoV1(Resource):
                     break
             return Response.success(data=data)
         except Exception as e:
-            msg = "get dashboard running task list failed: {}".format(e)
+            msg = "获取系统信息失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -148,9 +148,9 @@ class DashboardCeleryTaskStopV1(Resource):
             fuxi_celery.control.revoke(cid, terminate=True)
             if args.get("table") and args.get("tid"):
                 mongo[args.get("table")].update_many({"_id": ObjectId(args.get("tid"))}, {"$set": {"status": "completed"}})
-            return Response.success(message="The task has stopped")
+            return Response.success(message="任务已停止")
         except Exception as e:
-            msg = "Stop task failed: {}".format(e)
+            msg = "停止任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
