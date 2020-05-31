@@ -86,7 +86,7 @@ class PocsuiteTasksV1(Resource):
                 )
                 t_poc_scanner.delay(tid)
                 logger.success("{} created the poc scan task {}".format(op, tid))
-                return Response.success(message="The task was created successfully")
+                return Response.success(message="任务创建成功")
             else:
                 result = quick_poc_scanner(target, poc_id)
                 return Response.success(data=result)
@@ -160,7 +160,7 @@ class PocsuiteTaskManageV1(Resource):
                 celery_id = t_poc_scanner.delay(tid)
                 DBPocsuiteTask.update_celery_id(tid, str(celery_id))
                 logger.info("{} {} rescan poc scan task".format(session.get('user'), tid))
-            return Response.success(message="successfully {}".format(action))
+            return Response.success(message="{} 成功".format(action))
         except Exception as e:
             msg = "rescan the task failed: {}".format(e)
             logger.warning(tid + msg)

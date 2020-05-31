@@ -223,7 +223,7 @@ class PortScanHostV1(Resource):
             logger.info("{} deleted the host: {}".format(op, hid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete host failed: {}".format(e)
+            msg = "删除主机失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -257,6 +257,6 @@ class PortResultExportV1(Resource):
             response.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
             return response
         except Exception as e:
-            msg = "get port scan result failed: {}".format(e)
+            msg = "获取端口扫描结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)

@@ -52,7 +52,7 @@ class SubdomainTasksV1(Resource):
                 })
             return Response.success(data=data)
         except Exception as e:
-            msg = "get subdomain scan task failed: {}".format(e)
+            msg = "获取域名扫描任务失败:{}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -68,10 +68,10 @@ class SubdomainTasksV1(Resource):
             tid = DBSubdomainTask.add(name, target, brute, info, threads)
             cid = t_subdomain_task.delay(tid)
             DBSubdomainTask.update_celery_id(tid, cid)
-            logger.success("{} created the subdomain scan task: {}".format(session.get('user'), tid))
-            return Response.success(message="The task was created successfully")
+            logger.success("{} 创建域名扫描任务: {}".format(session.get('user'), tid))
+            return Response.success(message="任务创建成功")
         except Exception as e:
-            msg = "subdomain task creation failed: {}".format(e)
+            msg = "域名扫描任务创建失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -98,9 +98,9 @@ class SubdomainTaskManageV1(Resource):
                 cid = t_subdomain_task.delay(tid)
                 DBSubdomainTask.update_celery_id(tid, cid)
                 logger.info("{} {} subdomain scan task rescan".format(session.get('user'), tid))
-            return Response.success(message="successfully {}".format(action))
+            return Response.success(message="{} 成功".format(action))
         except Exception as e:
-            msg = "rescan subdomain scan task failed: {}".format(e)
+            msg = "重新扫描任务失败: {}".format(e)
             logger.warning(tid + msg)
             return Response.failed(message=msg)
 
@@ -119,7 +119,7 @@ class SubdomainTaskManageV1(Resource):
             logger.info("{} deleted the subdomain scan task: {}".format(op, tid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete subdomain scan task failed: {}".format(e)
+            msg = "删除域名扫描任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -156,7 +156,7 @@ class SubdomainResultV1(Resource):
                 })
             return Response.success(data=data)
         except Exception as e:
-            msg = "get subdomain scan result failed: {}".format(e)
+            msg = "获取域名扫描结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)
 
@@ -176,7 +176,7 @@ class SubdomainResultManageV1(Resource):
             logger.info("{} deleted the subdomain scan result: {}".format(op, rid))
             return Response.success(message="删除成功")
         except Exception as e:
-            msg = "delete subdomain scan task failed: {}".format(e)
+            msg = "删除域名扫描任务失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -209,6 +209,6 @@ class SubdomainResultExportV1(Resource):
             response.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
             return response
         except Exception as e:
-            msg = "get port scan result failed: {}".format(e)
+            msg = "获取端口扫描结果失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(data=data, message=msg)

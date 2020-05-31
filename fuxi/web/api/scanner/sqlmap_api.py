@@ -82,7 +82,7 @@ class SqlmapTasksV1(Resource):
             celery_id = t_sqlmap_task.delay(tid)
             DBSqlmapTask.update_celery_id(tid, celery_id)
             logger.success("{} created the sqlmap task {}".format(op, tid))
-            return Response.success(message="The task was created successfully")
+            return Response.success(message="任务创建成功")
         except Exception as e:
             msg = "Failed to create task: {}".format(e)
             logger.warning(msg)
@@ -150,7 +150,7 @@ class SqlmapTaskManageV1(Resource):
                 item = DBSqlmapTask.find_by_id(tid)
                 if item and item.__contains__("celery_id"):
                     print(item.__contains__("celery_id"))
-            return Response.success(message="successfully {}".format(action))
+            return Response.success(message="{} 成功".format(action))
         except Exception as e:
             msg = "rescan the task failed: {}".format(e)
             logger.warning(tid + msg)

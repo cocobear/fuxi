@@ -78,7 +78,7 @@ class WhatwebTasksV1(Resource):
             )
             t_whatweb_task.delay(tid)
             logger.success("{} created the whatweb task: {}".format(session.get('user'), tid))
-            return Response.success(message="The task was created successfully")
+            return Response.success(message="任务创建成功")
         except Exception as e:
             msg = "task creation failed: {}".format(e)
             logger.warning(msg)
@@ -168,7 +168,7 @@ class WhatwebTaskManageV1(Resource):
                 # celery task
                 t_whatweb_task.delay(tid)
                 logger.info("{} {}: whatweb task rescan".format(session.get('user'), tid))
-            return Response.success(message="successfully {}".format(action))
+            return Response.success(message="{} 成功".format(action))
         except Exception as e:
             msg = "rescan the task failed: {}".format(e)
             logger.warning(tid + msg)
