@@ -37,7 +37,7 @@ class _DBFuxiAdmin(DatabaseBase):
 
     def add_admin(self, username, password, role=0, nick=None, email=None):
         if not self._user_check(username):
-            raise DatabaseError("username already exists")
+            raise DatabaseError("用户名已经存在")
         if username and password:
             try:
                 salt = token_hex()[8:16]
@@ -83,7 +83,7 @@ class _DBFuxiAdmin(DatabaseBase):
         if item:
             if item['password'] == self.hash_md5(password, item['salt']):
                 return True
-        raise DatabaseError("username or password is incorrect")
+        raise DatabaseError("用户名或密码错误")
 
     def token_check(self, token):
         item = mongo[self.table].find_one(
@@ -101,7 +101,7 @@ class _DBFuxiAdmin(DatabaseBase):
                 {"token": token}, {"username": 1, "nick": 1, "email": 1}
             )
         else:
-            raise DatabaseError("the access token is invalid")
+            raise DatabaseError("TOKEN无效")
 
     def change_password(self, username, password):
         salt = token_hex()[8:16]

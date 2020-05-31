@@ -35,7 +35,7 @@ class UserManageV1(Resource):
                 username=username, password=password,
                 nick=nick, email=email, role=1
             ):
-                return Response.success(message="add successful")
+                return Response.success(message="添加成功")
             else:
                 return Response.failed(message="Add admin failed", code=10401)
         except Exception as e:
@@ -74,11 +74,11 @@ class TokenManageV1(Resource):
             token = DBFuxiAdmin.get_token(username, password)
             if token:
                 logger.success("{} {} authentication success".format(remote_ip, username))
-                return Response.success(data=token, message="authentication success")
+                return Response.success(data=token, message="验证成功")
             else:
                 error = "{} authentication failed: {} {}".format(remote_ip, username, password)
                 logger.warning(error)
-                return Response.failed(message="authentication failed", code=10401)
+                return Response.failed(message="验证失败", code=10401)
         except Exception as e:
             logger.warning("get token failed: {}".format(e))
             return Response.failed(message=e)

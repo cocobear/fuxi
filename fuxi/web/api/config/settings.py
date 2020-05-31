@@ -34,7 +34,7 @@ class ConfigManageV1(Resource):
             # pass
             return Response.success()
         except Exception as e:
-            msg = "setup configuration failed: {}".format(e)
+            msg = "设置失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -59,7 +59,7 @@ class AccountManageV1(Resource):
                 data.append(item)
             return Response.success(data=data)
         except Exception as e:
-            msg = "setup configuration failed: {}".format(e)
+            msg = "设置失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -71,11 +71,11 @@ class AccountManageV1(Resource):
         try:
             if session.get("authority") == 0 and not DBFuxiAdmin.is_admin(uid):
                 DBFuxiAdmin.delete_by_id(uid)
-                return Response.success(message="successfully deleted")
+                return Response.success(message="删除成功")
             else:
-                return Response.failed(message="Delete user failed: Permission denied")
+                return Response.failed(message="删除用户失败: 没有权限")
         except Exception as e:
-            msg = "delete user failed: {} {}".format(uid, e)
+            msg = "删除用户失败: {} {}".format(uid, e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
@@ -86,7 +86,7 @@ class AccountManageV1(Resource):
         """
         try:
             if session.get("authority") != 0:
-                return Response.failed(message="Failed to modify user information: Permission denied")
+                return Response.failed(message="修改用户信息失败: 没有权限")
             args = parser.parse_args()
             username = args['username']
             nick = args['nick']
@@ -96,9 +96,9 @@ class AccountManageV1(Resource):
                "nick": nick,
                "email": email,
             })
-            return Response.success(message="Modify user information successfully")
+            return Response.success(message="修改用户信息成功")
         except Exception as e:
-            logger.warning("failed to modify user information: {}".format(e))
+            logger.warning("修改用户信息失败: {}".format(e))
             return Response.failed(message=e)
 
 
@@ -121,7 +121,7 @@ class BasicConfigMangeV1(Resource):
                     i['value'] = item[i['key']]
             return Response.success(data=data)
         except Exception as e:
-            msg = "setup configuration failed: {}".format(e)
+            msg = "设置失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg, data=data)
 
@@ -137,9 +137,9 @@ class BasicConfigMangeV1(Resource):
                 return Response.failed(message="Configuration item is invalid")
             d = {key.strip(): value.strip()}
             DBFuxiConfiguration.update_by_id(cid, d)
-            return Response.success(message="Update successful")
+            return Response.success(message="更新成功")
         except Exception as e:
-            msg = "Update failed: {}".format(e)
+            msg = "更新失败: {}".format(e)
             logger.warning(msg)
             return Response.failed(message=msg)
 
