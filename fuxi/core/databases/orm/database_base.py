@@ -39,9 +39,15 @@ class DatabaseBase:
         for _id in _id_list:
             _ids_to_delete.append(ObjectId(str(_id)))
         return mongo[self.table].delete_many({'_id': {'$in': _ids_to_delete}})
-        
+
     def delete_by_tid(self, tid):
         return mongo[self.table].delete_many({"task_id": str(tid)})
+        
+    def delete_by_tids(self, _id_list):
+        _ids_to_delete = []
+        for _id in _id_list:
+            _ids_to_delete.append(ObjectId(str(_id)))
+        return mongo[self.table].delete_many({'task_id': {'$in': _ids_to_delete}})
 
     def update_by_id(self, _id, data):
         return mongo[self.table].update_one({"_id": ObjectId(str(_id))}, {"$set": data})

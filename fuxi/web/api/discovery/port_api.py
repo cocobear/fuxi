@@ -141,8 +141,13 @@ class PortScanTaskManageV1(Resource):
         """
         try:
             op = session.get('user')
-            DBPortScanTasks.delete_by_id(tid)
-            DBPortScanResult.delete_by_tid(tid)
+            tid = tid.split(',')
+            if len(tid) <= 1:
+                DBPortScanTasks.delete_by_id(tid)
+                DBPortScanResult.delete_by_tid(tid[0])
+            else:
+                DBPortScanTasks.delete_by_ids(tid)
+                DBPortScanResult.delete_by_tids(tid)
             logger.info("{} deleted the port scan task: {}".format(op, tid))
             return Response.success(message="删除成功")
         except Exception as e:
@@ -221,7 +226,7 @@ class PortScanHostV1(Resource):
             op = session.get('user')
             hid = hid.split(',')
             if len(hid) <= 1:
-                DBPortScanResult.delete_by_id(hid)
+                DBPortScanResult.delete_by_id(hid[0])
             else:
                 DBPortScanResult.delete_by_ids(hid)
             logger.info("{} deleted the host: {}".format(op, hid))
