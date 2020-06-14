@@ -219,7 +219,11 @@ class PortScanHostV1(Resource):
         """
         try:
             op = session.get('user')
-            DBPortScanResult.delete_by_id(hid)
+            hid = hid.split(',')
+            if len(hid) <= 1:
+                DBPortScanResult.delete_by_id(hid)
+            else:
+                DBPortScanResult.delete_by_ids(hid)
             logger.info("{} deleted the host: {}".format(op, hid))
             return Response.success(message="删除成功")
         except Exception as e:
